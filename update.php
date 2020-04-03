@@ -10,6 +10,8 @@
 <body>
 
 
+
+
     <div class="container">
         <h2 class="mt-5 mb-5">Create New Pin</h2>
         <form action="" method="post">
