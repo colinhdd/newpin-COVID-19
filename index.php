@@ -9,23 +9,10 @@
 
 <body>
 
-<?php
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$db_name = 'users';
-
-$con=mysqli_connect($host,$user,$pass,$db);
-
-if($con)
-
-echo 'This fucking works';
-
-?>
 
     <div class="container">
         <h2 class="mt-5 mb-5">Create New Pin</h2>
-        <!-- <form action="" method="post">
+        <form action="" method="post">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">User ID</label>
                 <div class="col-sm-6">
@@ -54,7 +41,7 @@ echo 'This fucking works';
 
 
 
-        </form> -->
+        </form>
     </div>
 
 </body>
