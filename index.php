@@ -3,7 +3,7 @@
 
 //Connect Database
 
-$conn=mysqli_connect('localhost','colin','test1234','newpin');
+$conn=mysqli_connect('localhost','asterisk','c4llc3ntr3','asterisk');
 
 if (!$conn) {
 echo 'Connection error: ' . mysqli_connect_error();
@@ -12,26 +12,23 @@ echo 'Connection error: ' . mysqli_connect_error();
 
 
 if (isset($_POST['submit'])){
-    $userid = mysqli_real_escape_string($conn, $_POST['userid']);
+    $userid = mysqli_real_escape_string($conn, $_POST['name']);
     $pin = mysqli_real_escape_string($conn, $_POST['pin']);
     $newpin = mysqli_real_escape_string($conn, $_POST['newpin']);
     $cnewpin = mysqli_real_escape_string($conn, $_POST['cnewpin']);
 
     if ($newpin == $cnewpin) {
 
-    $sql = "UPDATE users SET PIN = '$newpin' WHERE ID = $userid AND PIN = $pin";
+    $sql = "UPDATE sipfriends SET secret = $newpin WHERE name = $userid AND secret = $pin";
 
     $result = mysqli_query($conn, $sql);
 
     }
 
     else {
+
         echo('New pin does not match');
     }
-
-
-
-
 
 
 }
@@ -58,6 +55,7 @@ if (isset($_POST['submit'])){
 
     <div class="container">
 
+<h2>
 
 
         <h2 class="mt-5 mb-5">Create New Pin</h2>
