@@ -20,6 +20,13 @@ if (isset($_GET['submit'])){
   
     $errormsg = 'false';
 
+    if ($newpin != $cnewpin) {
+        $notmatcherror = "New pin does not match";
+    }
+
+    else {
+
+   
 
     $sql1 = "SELECT secret FROM sipfriends where name = $userid";
 
@@ -27,38 +34,37 @@ if (isset($_GET['submit'])){
 
     $secret = mysqli_fetch_assoc($result1);
 
-
-
     $sql2 = "SELECT name FROM sipfriends where name = $userid";
 
     $result2 = mysqli_query($conn, $sql2);
 
     $extension = mysqli_fetch_assoc($result2);
 
+    
+
+   
+
+    if ($secret['secret'] != $pin) {
+        $pinerror = "Incorrect pin"; 
+        $errormsg = 'true';
+   
+    }
 
     if ($userid != $extension['name']) {
-        $error = "Extension is not recognized";
+        $iderror = "Extension number not recognized";
+        $errormsg = 'true';
     }
 
-    elseif ($secret['secret'] != $pin) {
-        $error = "Incorrect pin entered"; 
-    }
 
-    elseif ($newpin != $cnewpin) {
-        $error = "New pin does not match";
-    
-    }
-
-    else {
     
         $sql = "UPDATE sipfriends SET secret = $newpin WHERE name = $userid AND secret = $pin";
     
         $result = mysqli_query($conn, $sql);
 
         
-    
+        if($errormsg = 'false') {
             header("Location: /newpin-COVID-19/index.html");
-
+        }
 
        }
 
@@ -87,10 +93,6 @@ if (isset($_GET['submit'])){
 <html>
 
 <head>
-
-<style> .alert:empty {
-    display: none;
-}</style>
     <title>Create New Pin</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -100,41 +102,51 @@ if (isset($_GET['submit'])){
 
     <div class="container mt-5">
 
-    <div class="alert alert-danger" role="alert"><?php echo($error)?><?php?></div>
+    <div class="alert alert-danger" role="alert">
+        <?php  echo($notmatcherror)  ?>  <?php?>
 
-
-
-</div>
+    </div>
     
+    <div class="alert alert-danger" role="alert">
 
+        <?php  echo($iderror)  ?>  <?php?>
+
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+
+        <?php  echo($pinerror)  ?>  <?php?>
+    </div>
 
     <div class="container">
- 
+        <div class="alert alert-success" role="alert">
+    <?php  echo($pinsuccess)  ?>  <?php?>
+    </div>
 
         <h2 class="mt-5 mb-5">Create New Pin</h2>
         <form method="GET">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Extension</label>
                 <div class="col-sm-6">
-                    <input type="number" placeholder="Enter extension number" name="name" class="form-control">
+                    <input type="number" name="name" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Current Pin</label>
                 <div class="col-sm-6">
-                    <input type="password" placeholder="Enter current pin" name="pin" class="form-control">
+                    <input type="password" name="pin" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">New Pin</label>
                 <div class="col-sm-6">
-                    <input type="password" placeholder="Enter new pin" name="newpin" class="form-control">
+                    <input type="password" name="newpin" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Confirm New Pin</label>
                 <div class="col-sm-6">
-                    <input type="password" placeholder="Re-enter new pin" name="cnewpin" class="form-control">
+                    <input type="password" name="cnewpin" class="form-control">
                 </div>
             </div>
             <div  class="mt-5">
